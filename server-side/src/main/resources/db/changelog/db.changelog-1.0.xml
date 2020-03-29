@@ -52,4 +52,24 @@
             DROP TABLE course_student;
         </rollback>
     </changeSet>
+    <changeSet id="4" author="roth">
+        <sql>
+            INSERT INTO user (username, name, password, role) values("instructor1", "Insturtor Tom", "random", "TEACHER");
+            INSERT INTO user (username, name, password, role) values("instructor2", "Insturtor Adam", "random","TEACHER");
+            INSERT INTO user (username, name, password, role) values("instructor3", "Insturtor Will", "random", "TEACHER");
+        </sql>
+        <rollback>
+            TRUNCATE TABLE user;
+        </rollback>
+    </changeSet>
+    <changeSet id="5" author="roth">
+        <sql>
+            INSERT INTO course (name, instructor_id) values("MAT-101", (select id from user where username = "instructor1"));
+            INSERT INTO course (name, instructor_id) values("PHY-101", (select id from user where username = "instructor2"));
+            INSERT INTO course (name, instructor_id) values("CHE-101", (select id from user where username = "instructor3"));
+        </sql>
+        <rollback>
+            TRUNCATE TABLE course;
+        </rollback>
+    </changeSet>
 </databaseChangeLog>
