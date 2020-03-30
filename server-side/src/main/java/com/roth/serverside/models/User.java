@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Data
 @Entity
@@ -34,4 +35,8 @@ public class User implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
+
+    //@Transient: we dont't store in database
+    @Transient
+    private String token;
 }

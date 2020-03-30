@@ -1,7 +1,7 @@
 package com.roth.serverside.securityconfig;
 
-import com.roth.serverside.jwt.JwtAuthorizationFilter;
-import com.roth.serverside.jwt.JwtTokenProvider;
+import com.roth.serverside.jsonwebtoken.JwtAuthorizationFilter;
+import com.roth.serverside.jsonwebtoken.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

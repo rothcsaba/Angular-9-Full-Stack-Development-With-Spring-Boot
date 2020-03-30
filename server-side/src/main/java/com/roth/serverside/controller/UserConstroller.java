@@ -1,5 +1,6 @@
 package com.roth.serverside.controller;
 
+import com.roth.serverside.jsonwebtoken.JwtTokenProvider;
 import com.roth.serverside.models.CourseStudent;
 import com.roth.serverside.models.Role;
 import com.roth.serverside.models.User;
@@ -9,6 +10,7 @@ import com.roth.serverside.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +20,9 @@ import java.security.Principal;
 
 @RestController
 public class UserConstroller {
+
+    @Autowired
+    private JwtTokenProvider tokenProvider;
 
     @Autowired
     private UserService userService;
@@ -52,7 +57,10 @@ public class UserConstroller {
         if (principal == null) {
             return ResponseEntity.ok(principal);
         }
-        return new ResponseEntity<>(userService.findByUsername(principal.getName()), HttpStatus.OK);
+        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
+        User user = userService.findByUsername(authenticationToken.getName());
+        user.setToken(tokenProvider.generateToken(authenticationToken));
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping("/api/user/enroll")
