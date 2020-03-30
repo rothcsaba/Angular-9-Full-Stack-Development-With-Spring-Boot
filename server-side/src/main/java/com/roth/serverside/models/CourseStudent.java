@@ -1,10 +1,9 @@
-package com.roth.serverside.model;
+package com.roth.serverside.models;
 
 import lombok.Data;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,17 +15,18 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name = "course")
-public class Course implements Serializable {
+@Table(name = "course_student")
+public class CourseStudent implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    private User student;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="instructor_id", referencedColumnName = "id")
-    private User instructor;
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    private Course course;
 }

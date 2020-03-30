@@ -1,4 +1,4 @@
-package com.roth.serverside.model;
+package com.roth.serverside.models;
 
 import lombok.Data;
 

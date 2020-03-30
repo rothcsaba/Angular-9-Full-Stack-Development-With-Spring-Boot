@@ -1,8 +1,8 @@
 package com.roth.serverside.controller;
 
-import com.roth.serverside.model.Course;
-import com.roth.serverside.model.CourseStudent;
-import com.roth.serverside.service.CourseStudentService;
+import com.roth.serverside.models.Course;
+import com.roth.serverside.models.CourseStudent;
+import com.roth.serverside.services.CourseStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

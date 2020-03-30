@@ -1,6 +1,6 @@
-package com.roth.serverside.repository;
+package com.roth.serverside.repositories;
 
-import com.roth.serverside.model.User;
+import com.roth.serverside.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

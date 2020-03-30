@@ -1,6 +1,6 @@
-package com.roth.serverside.service;
+package com.roth.serverside.services;
 
-import com.roth.serverside.model.Course;
+import com.roth.serverside.models.Course;
 
 import java.util.List;
 

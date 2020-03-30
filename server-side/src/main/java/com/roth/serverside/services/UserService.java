@@ -1,6 +1,6 @@
-package com.roth.serverside.service;
+package com.roth.serverside.services;
 
-import com.roth.serverside.model.User;
+import com.roth.serverside.models.User;
 
 import java.util.List;
 

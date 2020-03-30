@@ -1,7 +1,7 @@
-package com.roth.serverside.service;
+package com.roth.serverside.services;
 
-import com.roth.serverside.model.Course;
-import com.roth.serverside.repository.CourseRepository;
+import com.roth.serverside.models.Course;
+import com.roth.serverside.repositories.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

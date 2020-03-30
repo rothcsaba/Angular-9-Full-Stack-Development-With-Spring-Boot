@@ -1,6 +1,6 @@
 package com.roth.serverside.controller;
 
-import com.roth.serverside.service.CourseStudentService;
+import com.roth.serverside.services.CourseStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

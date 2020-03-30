@@ -1,7 +1,7 @@
-package com.roth.serverside.service;
+package com.roth.serverside.services;
 
-import com.roth.serverside.model.User;
-import com.roth.serverside.repository.UserRepository;
+import com.roth.serverside.models.User;
+import com.roth.serverside.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
