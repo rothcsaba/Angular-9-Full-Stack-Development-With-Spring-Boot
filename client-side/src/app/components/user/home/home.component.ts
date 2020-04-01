@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../../../services/user.service';
+import {User} from '../../../models/user';
+import {Course} from '../../../models/course';
+import {CourseStudent} from '../../../models/coursestudent';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +12,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  courseList: Array<Course>;
+  errorMessage: string;
+  infoMessage: string;
+  currentUser: User;
 
-  ngOnInit(): void {
+  constructor(private userService: UserService, private router: Router) {
+    this.currentUser = this.userService.currentUserValue;
+  }
+
+  ngOnInit() {
+    this.findAllCourses();
+  }
+
+  findAllCourses() {
+    this.userService.findAllCourses().subscribe(data => {
+      this.courseList = data;
+    });
+  }
+
+  enroll(course: Course) {
+    if (!this.currentUser) {
+      this.errorMessage = 'You should sign in to enroll a course';
+      return;
+    }
+    const courseStudent = new CourseStudent();
+    courseStudent.student = this.currentUser;
+    courseStudent.course = course;
+
+    this.userService.enroll(courseStudent).subscribe(data => {
+      this.infoMessage = 'Mission is completed.';
+    }, err => {
+      this.errorMessage = 'Unexpected error occured.';
+    });
   }
 
 }
