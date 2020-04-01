@@ -5,8 +5,8 @@ import {map} from 'rxjs/operators';
 import {User} from '../models/user';
 import {CourseStudent} from '../models/courseStudent';
 
-let API_URL = 'http://localhost:8080/api/user/';
-let STUDENT_API_URL = 'http://localhost:8080/api/student/';
+const API_URL = 'http://localhost:8080/api/user/';
+const STUDENT_API_URL = 'http://localhost:8080/api/student/';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +40,7 @@ export class UserService {
       } : {}
     );
 
-    return this.http.get<any>(API_URL + 'login', {headers: headers}).pipe(
+    return this.http.get<any>(API_URL + 'login', {headers}).pipe(
       map(response => {
         if (response) {
           localStorage.setItem('currentUser', JSON.stringify(response));
@@ -75,6 +75,7 @@ export class UserService {
     return this.http.get(STUDENT_API_URL + 'courses/' + studentId, {headers: this.headers});
   }
 
+  // server side: @PostMapping("api/student/enroll")
   enroll(courseStudent: CourseStudent): Observable<any> {
     this.setHeaders();
     return this.http.post(STUDENT_API_URL + 'enroll', JSON.stringify(courseStudent), {headers: this.headers});
