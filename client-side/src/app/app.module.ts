@@ -13,6 +13,9 @@ import { ManagerComponent } from './components/manager/manager/manager.component
 import { NotFoundComponent } from './components/error/not-found/not-found.component';
 import { UnathorizedComponent } from './components/error/unathorized/unathorized.component';
 
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +31,10 @@ import { UnathorizedComponent } from './components/error/unathorized/unathorized
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
