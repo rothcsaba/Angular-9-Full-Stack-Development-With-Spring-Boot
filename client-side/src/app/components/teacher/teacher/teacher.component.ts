@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {TeacherService} from '../../../services/teacher.service';
+import {User} from '../../../models/user';
 
 @Component({
   selector: 'app-teacher',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TeacherComponent implements OnInit {
 
-  constructor() { }
+  studentList: Array<User>;
+  currentTeacher: User;
 
-  ngOnInit(): void {
+  constructor(private teacherService: TeacherService) {
+    this.currentTeacher = JSON.parse(localStorage.getItem('currentUser'));
+  }
+
+  ngOnInit() {
+    this.findAllStudentsOfInstructor();
+  }
+
+  findAllStudentsOfInstructor() {
+    this.teacherService.findAllStudentsOfInstructor(this.currentTeacher.id).subscribe(data => {
+      this.studentList = data;
+    });
   }
 
 }
