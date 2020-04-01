@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {Router, RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './components/user/home/home.component';
 import {LoginComponent} from './components/user/login/login.component';
 import {RegisterComponent} from './components/user/register/register.component';
@@ -10,16 +10,47 @@ import {ManagerComponent} from './components/manager/manager/manager.component';
 import {NotFoundComponent} from './components/error/not-found/not-found.component';
 import {UnathorizedComponent} from './components/error/unathorized/unathorized.component';
 
+import {AuthGuard} from './guards/auth.guard';
+import {Role} from './models/role';
+
 const routes: Routes = [
+  //public pages
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'profile', component: ProfileComponent},
-  {path: 'student', component: StudentComponent},
-  {path: 'student/:id', component: StudentComponent},
-  {path: 'teacher', component: TeacherComponent},
-  {path: 'manager', component: ManagerComponent},
+
+  // student role
+  {
+    path: 'student',
+    component: StudentComponent,
+    canActivate: [AuthGuard],
+    data: {roles: [Role.STUDENT]}
+  },
+  {
+    path: 'student/:id',
+    component: StudentComponent,
+    canActivate: [AuthGuard],
+    data: {roles: [Role.STUDENT]}
+  },
+
+  // teacher role
+  {
+    path: 'teacher',
+    component: TeacherComponent,
+    canActivate: [AuthGuard],
+    data: {roles: [Role.TEACHER]}
+  },
+
+  // manager role
+  {
+    path: 'manager',
+    component: ManagerComponent,
+    canActivate: [AuthGuard],
+    data: {roles: [Role.MANAGER]}
+  },
+
   {path: '404', component: NotFoundComponent},
   {path: '401', component: UnathorizedComponent}
 ];
@@ -28,5 +59,11 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule {
+  constructor(private router: Router) {
+    this.router.errorHandler = (error: any) => {
+      this.router.navigate(['/404']);
+    };
+  }
 }
